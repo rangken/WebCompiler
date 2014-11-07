@@ -9,6 +9,7 @@ exports.compile = function(req, res){
   var time = new Date().getTime();
   var language = req.body.language;
   var compile = wc.getCompiler(language);
+  console.log(req.body.code);
   compile(req.body.code, function(err, stdout, stderr){
     res.header("Content-Type", "text/plain; charset=utf-8");
     if(stderr){

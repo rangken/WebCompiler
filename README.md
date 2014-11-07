@@ -6,4 +6,4 @@
 - 이렇게하는게 맞나?
 
 ## 테스트 URL 임시
-- http://127.0.0.1:1337/?data=%23include%20%3Cstdio.h%3E%0A%0Aint%20main()%7B%0A%20%20printf(%22hello%20world%22)%3B%0A%20%20return%200%3B%0A%7D%0A
+- [http://54.250.170.196:3002](http://54.250.170.196:3002)

@@ -3,16 +3,25 @@ var fs = require('fs');
 
 exports.compile = function(code, callback){
   var time = new Date().getTime();
-  var compile_cmd = "echo '" + code + "' | g++ -x c++ -o " + time +" - ";
-  exec(compile_cmd, function(err,stdout,stderr){
-    if(stderr){
-      callback(err,stdout,stderr);
-    }else{
-      run(time, function(err, stdout, stderr){
+
+  fs.writeFile('./'+time+'.cpp', code, function(err) {
+    //var compile_cmd = "echo " + code + " | g++ -x c++ -o " + time +" - ";
+    if(err) throw err;
+    var compile_cmd = "g++ -x c++ " + time + ".cpp" + " -o " + time;
+    console.log(compile_cmd);
+    exec(compile_cmd, function(err,stdout,stderr){
+      removefile(time + ".cpp");
+      if(stderr){
         callback(err,stdout,stderr);
-      });
-    }
+      }else{
+        run(time, function(err, stdout, stderr){
+          removefile(time);
+          callback(err,stdout,stderr);
+        });
+      }
+    });
   });
+
 };
 
 var makefile = function(filename){
