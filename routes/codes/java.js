@@ -44,7 +44,7 @@ var removefile = function(filename){
 }
 
 var run = function(filename, callback){
-  var run_cmd = "java "+filename;
+  var run_cmd = "java -Dfile.encoding=UTF8 "+filename;
   exec(run_cmd, function(err, stdout, stderr){
     //removefile(filename);
     callback(err,stdout,stderr);
