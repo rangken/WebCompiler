@@ -6,7 +6,7 @@ exports.compile = function(code, callback){
   var javafilename = './'+time+'.java';
   fs.writeFile('./'+time+'.java', code, function(err) {
     if(err) throw err;
-    var compile_cmd = "javac  -encoding utf-8" + javafilename;
+    var compile_cmd = "javac  -encoding utf-8 " + javafilename;
     var regexp = new RegExp("\\s*class (\\w+)");
     var arrmath = code.match(regexp);
     var runfilename = arrmath[1];
