@@ -9,7 +9,7 @@
     }
 
     #editor {
-        margin: 30;
+        margin: 60;
         position: absolute;
         top: 0;
         bottom: 0;
@@ -21,8 +21,14 @@
 <body>
   <form action="codes" method="post" id="code_form">
     <input name="code" type="hidden" id="code"/>
+    <select name="language" onchange="languageChange(this.options[this.selectedIndex].value)">
+      <option value="c++">C++</option>
+      <option value="c">C</option>
+      <option value="java"  selected="selected">Java</option>
+    </select>
     <button type="button" name="컴파일" id="compile_btn">Submit</button>
   </form>
+
 </body>
 <pre id="editor">
 
@@ -31,7 +37,8 @@
 <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/dawn");
-    editor.getSession().setMode("ace/mode/c_cpp");
+    //editor.getSession().setMode("ace/mode/c_cpp");
+    editor.getSession().setMode("ace/mode/java");
     editor.setOptions({
         enableBasicAutocompletion: true,
         enableSnippets: true,
@@ -40,14 +47,26 @@
 </script>
 <script>
       document.getElementById("compile_btn").onclick = submitAction;
-
+      var basecode = "class Main{ \n \
+  public static void main(String args[]){ \n \
+     System.out.println(\"합격축하 준쿠\"); \n \
+  }\n \
+}\n \
+";
+      editor.getSession().setValue(basecode);
       function submitAction()
       {
           var code = editor.getSession().getValue();
-          console.log(code);
           document.getElementById('code').value = code;
           document.getElementById("code_form").submit();
           return false;
+      }
+      function languageChange(language){
+        if(language == "c" || language == "c++"){
+          editor.getSession().setMode("ace/mode/c_cpp");
+        }else if(language == "java"){
+          editor.getSession().setMode("ace/mode/java");
+        }
       }
   </script>
 </html>
